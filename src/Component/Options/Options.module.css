@@ -1,0 +1,10 @@
+.btnBlock {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  padding: 6px;
+  font-size: 20px;
+}
