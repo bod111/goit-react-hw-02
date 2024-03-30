@@ -19,11 +19,10 @@ function App() {
     return JSON.parse(savedObject);
   });
 
-  const updateFeedback = ({ target }) => {
-    const name = target.name;
+  const updateFeedback = (feedbackType) => {
     setFeedbackCollection({
       ...feedbackCollection,
-      [name]: feedbackCollection[name] + 1,
+      [feedbackType]: feedbackCollection[feedbackType] + 1,
     });
   };
 
@@ -51,6 +50,7 @@ function App() {
     const totalFeedback = countTotalFeedback();
     return Math.round((feedbackCollection.good / totalFeedback) * 100);
   };
+
   return (
     <>
       <Description />

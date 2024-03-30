@@ -14,7 +14,9 @@ export default function Options({
           key={feedback}
           type="button"
           name={feedback}
-          onClick={updateFeedback}
+          onClick={() => {
+            updateFeedback(feedback);
+          }}
         >
           {feedback[0].toUpperCase() + feedback.slice(1)}
         </button>
