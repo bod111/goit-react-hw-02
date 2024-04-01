@@ -20,16 +20,12 @@ function App() {
   });
 
   const updateFeedback = (feedbackType) => {
-    setFeedbackCollection(() => {
+    setFeedbackCollection((prevFeedbackCollection) => {
       return {
-        ...feedbackCollection,
+        ...prevFeedbackCollection,
         [feedbackType]: feedbackCollection[feedbackType] + 1,
       };
     });
-    // setFeedbackCollection({
-    //   ...feedbackCollection,
-    //   [feedbackType]: feedbackCollection[feedbackType] + 1,
-    // });
   };
 
   useEffect(() => {
@@ -44,6 +40,8 @@ function App() {
     return good + neutral + bad;
   };
 
+  const totalFeedbackResult = countTotalFeedback();
+
   const onResetFeedbacks = () => {
     setFeedbackCollection({
       good: 0,
@@ -53,11 +51,10 @@ function App() {
   };
 
   const handlePositiveFeedback = () => {
-    const totalFeedback = countTotalFeedback();
-    return Math.round((feedbackCollection.good / totalFeedback) * 100);
+    // const totalFeedback = countTotalFeedback();
+    return Math.round((feedbackCollection.good / totalFeedbackResult) * 100);
   };
 
-  const totalFeedbackResult = countTotalFeedback();
   const positiveFeedbackResult = handlePositiveFeedback();
 
   return (
@@ -67,9 +64,9 @@ function App() {
         updateFeedback={updateFeedback}
         feedbacks={Object.keys(feedbackCollection)}
         reset={onResetFeedbacks}
-        totalFeedback={countTotalFeedback()}
+        totalFeedback={totalFeedbackResult}
       />
-      {countTotalFeedback() > 0 ? (
+      {totalFeedbackResult > 0 ? (
         <Feedback
           feedbackCollection={feedbackCollection}
           totalFeedback={totalFeedbackResult}
