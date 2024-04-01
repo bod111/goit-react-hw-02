@@ -20,10 +20,16 @@ function App() {
   });
 
   const updateFeedback = (feedbackType) => {
-    setFeedbackCollection({
-      ...feedbackCollection,
-      [feedbackType]: feedbackCollection[feedbackType] + 1,
+    setFeedbackCollection(() => {
+      return {
+        ...feedbackCollection,
+        [feedbackType]: feedbackCollection[feedbackType] + 1,
+      };
     });
+    // setFeedbackCollection({
+    //   ...feedbackCollection,
+    //   [feedbackType]: feedbackCollection[feedbackType] + 1,
+    // });
   };
 
   useEffect(() => {
@@ -51,6 +57,9 @@ function App() {
     return Math.round((feedbackCollection.good / totalFeedback) * 100);
   };
 
+  const totalFeedbackResult = countTotalFeedback();
+  const positiveFeedbackResult = handlePositiveFeedback();
+
   return (
     <>
       <Description />
@@ -63,8 +72,8 @@ function App() {
       {countTotalFeedback() > 0 ? (
         <Feedback
           feedbackCollection={feedbackCollection}
-          totalFeedback={countTotalFeedback()}
-          positiveFeedback={handlePositiveFeedback()}
+          totalFeedback={totalFeedbackResult}
+          positiveFeedback={positiveFeedbackResult}
         />
       ) : (
         <Notification />
